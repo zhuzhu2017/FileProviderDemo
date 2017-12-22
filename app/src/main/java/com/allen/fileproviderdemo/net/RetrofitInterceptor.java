@@ -1,5 +1,7 @@
 package com.allen.fileproviderdemo.net;
 
+import com.allen.fileproviderdemo.app.Constants;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -15,7 +17,7 @@ public class RetrofitInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        String authHeader = "";
+        String authHeader = Constants.TEMP_TOKEN;
         Request request = chain.request()
                 .newBuilder()
                 .header("ttm_token", authHeader)
