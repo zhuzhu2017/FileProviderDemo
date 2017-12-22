@@ -22,4 +22,9 @@ public class Constants {
      * 游客token
      */
     public static String TEMP_TOKEN = "";
+
+    /**
+     * apk名称
+     */
+    public static String APK_NAME = "ttmall.apk";
 }

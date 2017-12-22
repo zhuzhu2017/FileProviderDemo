@@ -1,6 +1,7 @@
 package com.allen.fileproviderdemo.view.main;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,11 @@ import android.widget.Toast;
 
 import com.allen.fileproviderdemo.R;
 import com.allen.fileproviderdemo.presenter.main.UpdatePresenter;
+import com.tongtong.permissionlib.AndPermission;
+import com.tongtong.permissionlib.Permission;
+import com.tongtong.permissionlib.PermissionListener;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +42,20 @@ public class MainActivity extends AppCompatActivity implements IUpdateView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         presenter = new UpdatePresenter(this);
+        AndPermission.with(this)
+                .requestCode(110)
+                .permission(Permission.STORAGE)
+                .callback(new PermissionListener() {
+                    @Override
+                    public void onSucceed(int requestCode, @NonNull List<String> grantPermissions) {
+                        Toast.makeText(MainActivity.this, "权限获取成功", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailed(int requestCode, @NonNull List<String> deniedPermissions) {
+                        Toast.makeText(MainActivity.this, "权限获取失败", Toast.LENGTH_SHORT).show();
+                    }
+                }).start();
     }
 
     @OnClick({R.id.btn_update, R.id.btn_take_photo, R.id.btn_sys_pic})

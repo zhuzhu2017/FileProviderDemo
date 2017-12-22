@@ -1,5 +1,7 @@
 package com.allen.fileproviderdemo.model.main;
 
+import android.util.Log;
+
 import com.allen.fileproviderdemo.model.main.listener.UpdateListener;
 import com.allen.fileproviderdemo.utils.RetrofitUtil;
 
@@ -32,6 +34,7 @@ public class IVersionActionImp implements IVersionAction {
                             listener.onError();
                             return;
                         }
+                        Log.d("更新", response.body().toString() + "");
                         try {
                             int code = response.body().getInt("code");
                             if (code != 1100) {
